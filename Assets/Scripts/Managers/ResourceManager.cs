@@ -1,4 +1,4 @@
-﻿/* NAME:            MovingObject.cs
+﻿/* name:            MovingObject.cs
  * AUTHOR:          Shinlynn Kuo, Yu-Che Cheng (Jeffrey), Hamza Awad, Emmilio Segovia
  * DESCRIPTION:     The Resource Manager is meant to keep references of all assets like item
  *                  scriptable objects and Sounds that will need to be accessed. That way,
@@ -37,8 +37,8 @@ public class ResourceManager : Singleton<ResourceManager> {
     {
         object[] loaded_items = Resources.LoadAll("Items");
         foreach (ItemBase i in loaded_items) {
-            if (!ItemDict.ContainsKey(i.Name)) {
-                ItemDict.Add(i.Name, i);
+            if (!ItemDict.ContainsKey(i.name)) {
+                ItemDict.Add(i.name, i);
             }
         }
     }
