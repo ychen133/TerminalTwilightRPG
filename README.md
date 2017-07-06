@@ -12,7 +12,7 @@ by the RPG group of Gamespawn club at UCR.
 2) Select the folder "Unity_RPG_Project" <br />
 3) choose "Select Folder" <br />
 
-# Changlog
+# Changelog
 
 ## Shop
 * The Shop Menu will only open if the ShopCanvas is active.
