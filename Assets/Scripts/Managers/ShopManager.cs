@@ -18,6 +18,7 @@ public class ShopManager : Singleton<ShopManager> {
 	public Transform ListArea;		//reference to Scroll View Content containing shop items
 	public GameObject ButtonPrefab;	//reference to prefab for shop entries
 	public Image Details;			//reference to details panel main image
+	public Text ItemName;			//reference to details panel item name
 	public Text Description;		//reference to details panel description text
 	public GameObject BuyItemPopUp;	//reference to buy quantity popup
 	public BuyItemPopup PopupScript;//reference to buy quantity popup's script
@@ -39,12 +40,14 @@ public class ShopManager : Singleton<ShopManager> {
 			if (value == null) 
 			{
 				Details.sprite = null;
+				ItemName.text = "";
 				Description.text = "";
 				BuyButton.SetActive (false);
 			}
 			else 
 			{
 				Details.sprite = value.Item.Sprite;
+				ItemName.text = value.Item.name;
 				Description.text = value.Item.Description;
 				BuyButton.SetActive (true);
 			}
