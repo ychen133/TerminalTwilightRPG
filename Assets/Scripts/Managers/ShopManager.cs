@@ -102,10 +102,18 @@ public class ShopManager : Singleton<ShopManager> {
 	/// </summary>
 	void Clean () 
 	{
-		for (int i = ListArea.childCount - 1; i >= 0; i--) 
-		{
-			Destroy (ListArea.GetChild (i).gameObject);
+		if (ListArea != null) {
+			
+			for (int i = ListArea.childCount - 1; i >= 0; i--) {
+				
+				if (ListArea.GetChild (i).gameObject != null) {
+					Destroy (ListArea.GetChild (i).gameObject);
+				}
+
+
+			}
 		}
+
 	}
 
 	/// <summary>
