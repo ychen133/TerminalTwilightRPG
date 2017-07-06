@@ -9,20 +9,21 @@ public class ShopManager : Singleton<ShopManager> {
 	public ShopManager () {}	//prevents constructor from being used
 
 	[Header("Main Shop Reference")]
-	public ShopInventory MyShop;	//reference to the ShopInventory ScritableObject
+	public ShopInventory MyShop;			//reference to the ShopInventory ScritableObject
 
 	[Header("UI References")]
-	public GameObject ShopCanvas;	//reference to shop canvas
-	public GameObject BGBlur;		//reference to background blur
-	public GameObject MenuTransform;//reference to menu transform for animation
-	public Transform ListArea;		//reference to Scroll View Content containing shop items
-	public GameObject ButtonPrefab;	//reference to prefab for shop entries
-	public Image Details;			//reference to details panel main image
-	public Text ItemName;			//reference to details panel item name
-	public Text Description;		//reference to details panel description text
-	public GameObject BuyItemPopUp;	//reference to buy quantity popup
-	public BuyItemPopup PopupScript;//reference to buy quantity popup's script
-	public GameObject BuyButton;	//reference to buy item button
+	public GameObject ShopCanvas;			//reference to shop canvas
+	public GameObject BGBlur;				//reference to background blur
+	public GameObject MenuTransform;		//reference to menu transform for animation
+	public Transform ListArea;				//reference to Scroll View Content containing shop items
+	public GameObject ButtonPrefab;			//reference to prefab for shop entries
+	public Image Details;					//reference to details panel main image
+	public Text ItemName;					//reference to details panel item name
+	public Text Description;				//reference to details panel description text
+	public BuyItemPopup PopupScript;		//reference to buy quantity popup's script
+	public GameObject BuyItemPopUp;			//reference to buy quantity popup
+	public BuyItemInputField FieldScript;	//reference to buy quantity popup's input field script
+	public GameObject BuyButton;			//reference to buy item button
 
 
 	[HideInInspector]
@@ -153,6 +154,7 @@ public class ShopManager : Singleton<ShopManager> {
 			PopupOpen = true;
 			BuyButton.GetComponent<Button> ().enabled = false;
 			BuyItemPopUp.GetComponent<Animator> ().SetTrigger ("Open");
+			FieldScript.Reset ();
 
 			// Reset all button states to unhighlighted
 			foreach (Button b in BuyItemPopUp.GetComponentsInChildren<Button>()) 
@@ -173,6 +175,7 @@ public class ShopManager : Singleton<ShopManager> {
 			PopupOpen = false;
 			BuyButton.GetComponent<Button> ().enabled = true;
 			BuyItemPopUp.GetComponent<Animator> ().SetTrigger ("Close");
+
 		}
 
 	}

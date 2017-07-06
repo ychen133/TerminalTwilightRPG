@@ -7,10 +7,11 @@ public class BuyItemInputField : MonoBehaviour {
 
 	InputField MyInputField;
 
-	private void OnDisable()
+	public void Reset()
 	{
-		if (!MyInputField)
-			MyInputField = GetComponent<InputField>();
+		if (MyInputField == null) {
+			MyInputField = GetComponent<InputField> ();
+		}
 		MyInputField.text = "1";
 	}
 }
