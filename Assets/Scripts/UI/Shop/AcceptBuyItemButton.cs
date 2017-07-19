@@ -14,10 +14,14 @@ public class AcceptBuyItemButton : MonoBehaviour, IPointerClickHandler {
 
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
 	{
-		if (ShopManager.Instance.SelectedItem != null)
-			Inventory.Instance.AddItem(ShopManager.Instance.SelectedItem.Item.name, BuyQuantity);
-		else
-			Debug.LogError("No item selected!");
+		if (ShopManager.Instance.SelectedItem != null) {
+			string Name = ShopManager.Instance.SelectedItem.Item.name;
+			int ActualQuantity = Inventory.Instance.MaxPossibleAdded (Name, BuyQuantity);
+			Debug.Log(ActualQuantity);
+			Inventory.Instance.AddItem (Name, ActualQuantity);
+		} else {
+			Debug.LogError ("No item selected!");
+		}
 		ShopManager.Instance.ClosePopUp ();
 	}
 
