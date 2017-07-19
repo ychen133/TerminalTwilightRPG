@@ -12,6 +12,9 @@ using UnityEngine.UI;
 
 public class Inventory : Singleton<Inventory> {
 
+    // CONSTANTS
+    private const int POCKETCAPACITY = 60;
+
     [Header("To Display Lists in Menu")]
     public GameObject MenuItemImagePrefab;
     public GameObject MenuItemQuantityPrefab;
@@ -19,7 +22,7 @@ public class Inventory : Singleton<Inventory> {
     [Space(10)]
 
     /// Dictionaries of all categories or "pockets" in bag for each item in inventory
-    /// The key is the quantity of that item. 
+    /// The value is the quantity of that item. 
     /// Each dict represents one "pocket" of the inventory bag.
     private Dictionary<string, int> Consumables = new Dictionary<string, int>();
     private Dictionary<string, int> Weapons = new Dictionary<string, int>();
@@ -32,7 +35,7 @@ public class Inventory : Singleton<Inventory> {
     /// So the total capacity = PocketCapacity * NumberofItemTypes (currently 5 types)
     /// It preferrable to set it to a multiple of the items-per-row of the main menu (currently 6)
     /// </summary>
-    private int _PocketCapacity = 60;
+    private int _PocketCapacity = POCKETCAPACITY;
     public int PocketCapacity {
         get
         {
@@ -42,8 +45,8 @@ public class Inventory : Singleton<Inventory> {
         {
             if (value < 0)
                 _PocketCapacity = 0;
-            else if (value > 60)
-                _PocketCapacity = 60;
+            else if (value > POCKETCAPACITY)
+                _PocketCapacity = POCKETCAPACITY;
             else
                 _PocketCapacity = value;
         }
@@ -82,13 +85,29 @@ public class Inventory : Singleton<Inventory> {
                     update_grid = UIManager.Instance.KeysGrid;
                     break;
             }
-            if ((update_dict.Count + quantity) >= _PocketCapacity) {
-                return 1; //error 1
+            // Error Lists
+            //error 1: can't add another unique item
+            if (!update_dict.ContainsKey(item_name) && update_dict.Count >= _PocketCapacity)
+            {
+                Debug.LogWarning("Cannot add "+ item_name + " because the " + update_dict.ToString()
+                    + "inventory pocket has a capacity of "+_PocketCapacity + " and there are already " + update_dict.Count + " DIFFERENT items (not counting individual quantities)");
+                return 1;
             }
+            //error 2: contained, but max amount of that particular item is reached
             if (update_dict.ContainsKey(item_name) && (update_dict[item_name] + quantity)
-                >= item_base.MaxAmount)
-                return 2; //error 2
-            // else succesful
+                > item_base.MaxAmount)
+            {
+                Debug.LogWarning("Cannot add " + quantity + " " + item_name + " because the max amount of " + item_name + " is "
+                    + item_base.MaxAmount + " and there are already " + update_dict[item_name]);
+                return 2;
+            }
+			//error 3: not contained, but max amount  of that particular item is reached
+			if (quantity > item_base.MaxAmount) {
+				Debug.LogWarning ("Cannot add " + quantity + " " + item_name + " because the max amount of " + item_name + " is "
+				+ item_base.MaxAmount);
+				return 3;
+			}
+            // else s
             if (!update_dict.ContainsKey(item_name)) {
                 update_dict.Add(item_name, quantity);
             }
@@ -150,6 +169,46 @@ public class Inventory : Singleton<Inventory> {
         else
             Debug.LogError(item_name+" could not be removed");
     }
+
+	public int MaxPossibleAdded(string item_name, int quantity) {
+		ItemBase item_base = ResourceManager.Instance.GetItem (item_name);
+		if (item_base != null) {
+			ItemTypes item_type = item_base.Type;
+			Dictionary<string, int> update_dict;
+			switch (item_type) {
+				case ItemTypes.Consumable:
+					update_dict = Consumables;
+					break;
+				case ItemTypes.Weapon:
+					update_dict = Weapons;
+					break;
+				case ItemTypes.Gear:
+					update_dict = Gear;
+					break;
+				case ItemTypes.Material:
+					update_dict = Materials;
+					break;
+				default:
+					update_dict = Keys;
+					break;
+			}
+
+			if (update_dict.ContainsKey (item_name)) 
+			{
+				return Mathf.Clamp (quantity, 0, item_base.MaxAmount - update_dict [item_name]);
+			} 
+			else if (update_dict.Count >= _PocketCapacity)
+			{
+				return 0;
+			}
+			else {
+				return Mathf.Clamp (quantity, 0, item_base.MaxAmount);
+			}
+
+		} else {
+			return 0;
+		}
+	}
 
     protected override void Awake()
     {

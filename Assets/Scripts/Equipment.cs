@@ -29,14 +29,14 @@ public class Equipment : MonoBehaviour
             MyStats.HP += consumable.HPRecovery;
             if (MyStats.HP > MyStats.MaxHP)
                 MyStats.HP = MyStats.MaxHP;
-            Inventory.Instance.RemoveItem(consumable.Name, 1); //consume
+            Inventory.Instance.RemoveItem(consumable.name, 1); //consume
             Player.Instance.UpdateParty(); //update sliders
         }
         if (MyStats.MP < MyStats.MaxMP && consumable.MPRecovery > 0) {
             MyStats.MP += consumable.MPRecovery;
             if (MyStats.MP > MyStats.MaxMP)
                 MyStats.MP = MyStats.MaxMP;
-            Inventory.Instance.RemoveItem(consumable.Name, 1); //consume
+            Inventory.Instance.RemoveItem(consumable.name, 1); //consume
             Player.Instance.UpdateParty(); //update sliders
         }
     }
@@ -57,42 +57,42 @@ public class Equipment : MonoBehaviour
                 break;
             case EquipSlots.Head:
                 if (Head != null) { //if there is already an item
-                    Inventory.Instance.AddItem(Head.Name, 1); //return it to inventory
+                    Inventory.Instance.AddItem(Head.name, 1); //return it to inventory
                     LowerStats(gameObject.GetComponent<Stats>(), Head); //reduce stat boost
                 }
                 Head = new_item; //set new item
                 break;
             case EquipSlots.Hand:
                 if (Hand != null) { //if there is already an item
-                    Inventory.Instance.AddItem(Hand.Name, 1); //return it to inventory
+                    Inventory.Instance.AddItem(Hand.name, 1); //return it to inventory
                     LowerStats(gameObject.GetComponent<Stats>(), Hand); //reduce stat boost
                 }
                 Hand = new_item; //set new item
                 break;
             case EquipSlots.Torso:
                 if (Torso != null) {
-                    Inventory.Instance.AddItem(Torso.Name, 1);
+                    Inventory.Instance.AddItem(Torso.name, 1);
                     LowerStats(gameObject.GetComponent<Stats>(), Torso); //reduce stat boost
                 }
                 Torso = new_item;
                 break;
             case EquipSlots.Legs:
                 if (Legs != null) {
-                    Inventory.Instance.AddItem(Legs.Name, 1);
+                    Inventory.Instance.AddItem(Legs.name, 1);
                     LowerStats(gameObject.GetComponent<Stats>(), Legs); //reduce stat boost
                 }
                 Legs = new_item;
                 break;
             case EquipSlots.Extra:
                 if (Extra != null) {
-                    Inventory.Instance.AddItem(Extra.Name, 1);
+                    Inventory.Instance.AddItem(Extra.name, 1);
                     LowerStats(gameObject.GetComponent<Stats>(), Extra); //reduce stat boost
                 }
                 Extra = new_item;
                 break;
         }
         //remove from inventory
-        Inventory.Instance.RemoveItem(new_item.Name, 1);
+        Inventory.Instance.RemoveItem(new_item.name, 1);
         Player.Instance.UpdateParty();
     }
 
@@ -103,7 +103,7 @@ public class Equipment : MonoBehaviour
     {
         ItemBase item = UIManager.Instance.SelectedCharacter.GetComponent<Equipment>().GetEquipSlot(slot);
         if (item) {
-            Inventory.Instance.AddItem(item.Name, 1);
+            Inventory.Instance.AddItem(item.name, 1);
             switch (slot) {
                 case EquipSlots.Head:
                     Head = null;
