@@ -173,7 +173,7 @@ public class Player : MovingObject
             //Activate/deactivate monsters
             foreach (Monster mon in GameManager.Instance.all_monsters) {
                 float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((transform.position.x - mon.transform.position.x), (transform.position.y - mon.transform.position.y)));
-                if (sqr_magnitude <= 220) {
+				if (sqr_magnitude <= 220 && !mon.GetComponent<Monster>().killed) {
                     mon.gameObject.SetActive(true);
                 }
                 else
