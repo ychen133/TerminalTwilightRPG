@@ -23,7 +23,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //Global enum. The possible game states set in the animator state machine.
-public enum GameStates {IntroState, IdleState, PlayerMovingState, DialogueState, BattleState, MainMenuState, ShopState};
+public enum GameStates {IntroState, IdleState, PlayerMovingState, DialogueState, BattleState, MainMenuState};
 
 public class GameManager : Singleton<GameManager> {
 

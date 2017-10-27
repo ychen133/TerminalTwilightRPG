@@ -14,11 +14,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemTypes { Consumable, Weapon, Gear, Material, Key };
-public enum EquipSlots { None, Head, Hand, Torso, Legs, Extra };
-
+public enum EquipSlots { None, Head, Hand, Torso, Legs, Extra }; 
 public class ItemBase : ScriptableObject {
 
-	/*
     /// <summary>
     /// Name of item
     /// </summary>
@@ -30,7 +28,6 @@ public class ItemBase : ScriptableObject {
             return _Name;
         }
     }
-	*/
 
     /// <summary>
     /// Type of item (Consumable, Weapon, Gear, Material, Key)
@@ -95,7 +92,6 @@ public class ItemBase : ScriptableObject {
         }
     }
 
-	/*
     /// <summary>
     /// Gold value of item. Limit is one million chips.
     /// </summary>
@@ -116,7 +112,6 @@ public class ItemBase : ScriptableObject {
                 _GoldValue = value;
         }
     }
-	*/
 
     /// <summary>
     /// The amount of HP this item replenishes.

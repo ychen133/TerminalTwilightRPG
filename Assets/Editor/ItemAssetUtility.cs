@@ -8,4 +8,10 @@ public class ItemAssetUtility
     {
         ScriptableObjectUtility.CreateAsset<ItemBase>();
     }
+
+	[MenuItem("Assets/Create/Game Skill")]
+	public static void CreateSkill()
+	{
+		ScriptableObjectUtility.CreateAsset<SkillBase>();
+	}
 }

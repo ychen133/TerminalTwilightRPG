@@ -157,23 +157,23 @@ public class MenuPartyBlock : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UIManager.Instance.TossItemButton.SetActive(false);
         //update equipment list display
         if (MyEquip.Head)
-            UIManager.Instance.EquipListTexts[0].text = MyEquip.Head.name;
+            UIManager.Instance.EquipListTexts[0].text = MyEquip.Head.Name;
         else
             UIManager.Instance.EquipListTexts[0].text = "Empty";
         if (MyEquip.Hand)
-            UIManager.Instance.EquipListTexts[1].text = MyEquip.Hand.name;
+            UIManager.Instance.EquipListTexts[1].text = MyEquip.Hand.Name;
         else
             UIManager.Instance.EquipListTexts[1].text = "Empty";
         if (MyEquip.Torso)
-            UIManager.Instance.EquipListTexts[2].text = MyEquip.Torso.name;
+            UIManager.Instance.EquipListTexts[2].text = MyEquip.Torso.Name;
         else
             UIManager.Instance.EquipListTexts[2].text = "Empty";
         if (MyEquip.Legs)
-            UIManager.Instance.EquipListTexts[3].text = MyEquip.Legs.name;
+            UIManager.Instance.EquipListTexts[3].text = MyEquip.Legs.Name;
         else
             UIManager.Instance.EquipListTexts[3].text = "Empty";
         if (MyEquip.Extra)
-            UIManager.Instance.EquipListTexts[4].text = MyEquip.Extra.name;
+            UIManager.Instance.EquipListTexts[4].text = MyEquip.Extra.Name;
         else
             UIManager.Instance.EquipListTexts[4].text = "Empty";
         UIManager.Instance.EquipList.SetActive(true);

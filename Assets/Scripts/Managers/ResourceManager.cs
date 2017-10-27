@@ -1,4 +1,4 @@
-﻿/* name:            MovingObject.cs
+﻿/* NAME:            MovingObject.cs
  * AUTHOR:          Shinlynn Kuo, Yu-Che Cheng (Jeffrey), Hamza Awad, Emmilio Segovia
  * DESCRIPTION:     The Resource Manager is meant to keep references of all assets like item
  *                  scriptable objects and Sounds that will need to be accessed. That way,
@@ -19,15 +19,18 @@ public class ResourceManager : Singleton<ResourceManager> {
     //the Dictionaries that keep each reference
     private Dictionary<string, ItemBase> ItemDict;
     private Dictionary<string, AudioClip> SoundDict;
+	private Dictionary<string, SkillBase> SkillDict;
 
     protected override void Awake()
     {
         base.Awake();
         ItemDict = new Dictionary<string, ItemBase>();
         SoundDict = new Dictionary<string, AudioClip>();
+		SkillDict = new Dictionary<string, SkillBase> ();
 
         LoadItems();
         LoadSounds();
+		LoadSkills ();
     }
 
     /// <summary>
@@ -37,8 +40,8 @@ public class ResourceManager : Singleton<ResourceManager> {
     {
         object[] loaded_items = Resources.LoadAll("Items");
         foreach (ItemBase i in loaded_items) {
-            if (!ItemDict.ContainsKey(i.name)) {
-                ItemDict.Add(i.name, i);
+            if (!ItemDict.ContainsKey(i.Name)) {
+                ItemDict.Add(i.Name, i);
             }
         }
     }
@@ -56,6 +59,20 @@ public class ResourceManager : Singleton<ResourceManager> {
             }
         }
     }
+
+	/// <summary>
+	/// Loads the skills from the Resources folder
+	/// </summary>
+	private void LoadSkills()
+	{
+
+		object[] loaded_items = Resources.LoadAll("Skills");
+		foreach ( SkillBase i in loaded_items) {
+			if (!SkillDict.ContainsKey(i.name)) {
+				SkillDict.Add(i.name, i);
+			}
+		}
+	}
 
     /// <summary>
     /// Instantiates a character determined by the name
@@ -86,4 +103,15 @@ public class ResourceManager : Singleton<ResourceManager> {
             return null;
         }
     }
+
+	public SkillBase GetSkill(string name)
+	{
+		if (SkillDict.ContainsKey(name)) {
+			return SkillDict[name];
+		}
+		else {
+			Debug.LogError(name + " not found, it may be mispelled.");
+			return null;
+		}
+	}
 }

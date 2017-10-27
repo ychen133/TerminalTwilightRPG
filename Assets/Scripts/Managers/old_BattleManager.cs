@@ -244,7 +244,7 @@ public class OldBattleManager : Singleton<OldBattleManager> {
 					{
 						ATTACK_Button.interactable = false;
 						desc_text.text = current_stats.Name + " attacks " + MonsterStats.Name + "!";
-						DisplayDamage (5, current_stats.Attack (MonsterStats));
+						//DisplayDamage (5, current_stats.Attack (MonsterStats));
 						break;
 					}
 				case states.DEFEND:
@@ -285,7 +285,7 @@ public class OldBattleManager : Singleton<OldBattleManager> {
 			current_stats.defending = false;
 			//current_stats.Attack (PlayerStats);
 			desc_text.text = MonsterStats.Name + " attacks " + PlayerStats.Name + "!";
-			DisplayDamage (1, current_stats.Attack (PlayerStats));	//attacks
+			//DisplayDamage (1, current_stats.Attack (PlayerStats));	//attacks
 			++ListIndex;	//because properties sucks
 			current_stats = turn_order.ElementAt (ListIndex);
 			curr_state = states.WAITING;

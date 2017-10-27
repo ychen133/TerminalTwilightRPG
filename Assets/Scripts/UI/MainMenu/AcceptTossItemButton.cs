@@ -15,7 +15,7 @@ public class AcceptTossItemButton : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         if (UIManager.Instance.SelectedItem)
-            Inventory.Instance.RemoveItem(UIManager.Instance.SelectedItem.name, TossQuantity);
+            Inventory.Instance.RemoveItem(UIManager.Instance.SelectedItem.Name, TossQuantity);
         else
             Debug.LogError("No item selected!");
         UIManager.Instance.SelectedItem = null;

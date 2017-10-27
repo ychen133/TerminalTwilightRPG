@@ -1,4 +1,4 @@
-﻿/* name:            SetItemClickable.cs
+﻿/* NAME:            SetItemClickable.cs
  * AUTHOR:          Shinlynn Kuo, Yu-Che Cheng (Jeffrey), Hamza Awad, Emmilio Segovia
  * DESCRIPTION:     Item class for every item in game. It is a Scriptable Object.
  * REQUIREMENTS:    Values must be filled out in Unity Editor. Default value for
@@ -34,7 +34,7 @@ public class SetItemClickable : MonoBehaviour,
         UIManager.Instance.MainMenuDetailsImage.sprite =
             UIManager.Instance.SelectedItem.Sprite;
         UIManager.Instance.MainMenuDetailsText.text =
-            UIManager.Instance.SelectedItem.name + "\n"
+            UIManager.Instance.SelectedItem.Name + "\n"
             + UIManager.Instance.SelectedItem.Description;
     }
 
