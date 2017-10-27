@@ -24,7 +24,6 @@ public class Monster : MovingObject {
     public float MoveRate = 0.5f;
     [Tooltip("The maximum distance between player to chase her")]
     public int Radius = 5;
-	public bool killed = false;
 
     private float NextActionTime = 0f;
 	private Animator AnimatorMonster;
@@ -100,9 +99,9 @@ public class Monster : MovingObject {
             //    if (Time.time > NextActionTime) { //see if it is time to move again
             //        NextActionTime += MoveRate; //set the next time to move
                     float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((Target.position.x - transform.position.x), (Target.position.y - transform.position.y)));
-			if (sqr_magnitude <= 1.5) {
+                    if (sqr_magnitude <= 1.5) {
                         //BattleManager.Instance.Encounter(this);
-                	BattleCanvas.GetComponent<BattleManager>().Encounter(this);
+                         BattleCanvas.GetComponent<BattleManager>().Encounter(this);
             }
                     else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {
                         if (!Pathfinding)
