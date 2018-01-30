@@ -66,20 +66,20 @@ public class Player : MovingObject
                 blocks[j].GetComponent<MenuPartyBlock>().MyStats = Party[j].GetComponent<Stats>();
                 current_stats = Party[j].GetComponent<Stats>();                
                 //access each child display object and update it
-                blocks[j].transform.FindChild("Sprite").GetComponent<Image>().sprite = current_stats.SmallSprite;
-                blocks[j].transform.FindChild("Name").GetComponent<Text>().text = current_stats.Name;
+                blocks[j].transform.Find("Sprite").GetComponent<Image>().sprite = current_stats.SmallSprite;
+                blocks[j].transform.Find("Name").GetComponent<Text>().text = current_stats.Name;
                 //health bars, etc.
-                blocks[j].transform.FindChild("SliderHP").GetComponent<Slider>().value = current_stats.HP * 1.0f / current_stats.MaxHP;
-                blocks[j].transform.FindChild("SliderMP").GetComponent<Slider>().value = current_stats.MP * 1.0f / current_stats.MaxMP;
-                blocks[j].transform.FindChild("SliderEXP").GetComponent<Slider>().value = current_stats.EXP * 1.0f / current_stats.EXPNeeded;
+                blocks[j].transform.Find("SliderHP").GetComponent<Slider>().value = current_stats.HP * 1.0f / current_stats.MaxHP;
+                blocks[j].transform.Find("SliderMP").GetComponent<Slider>().value = current_stats.MP * 1.0f / current_stats.MaxMP;
+                blocks[j].transform.Find("SliderEXP").GetComponent<Slider>().value = current_stats.EXP * 1.0f / current_stats.EXPNeeded;
                 //numerical stats
-                blocks[j].transform.FindChild("HP").GetComponent<Text>().text = current_stats.HP + "/" + current_stats.MaxHP;
-                blocks[j].transform.FindChild("MP").GetComponent<Text>().text = current_stats.MP + "/" + current_stats.MaxMP;
-                blocks[j].transform.FindChild("EXP").GetComponent<Text>().text = current_stats.EXP + "/" + current_stats.EXPNeeded;
-                blocks[j].transform.FindChild("Level").GetComponent<Text>().text = "Level   " + current_stats.Level;
-                blocks[j].transform.FindChild("STR").GetComponent<Text>().text = current_stats.Strength.ToString();
-                blocks[j].transform.FindChild("DEF").GetComponent<Text>().text = current_stats.Defense.ToString();
-                blocks[j].transform.FindChild("AGL").GetComponent<Text>().text = current_stats.Agility.ToString();
+                blocks[j].transform.Find("HP").GetComponent<Text>().text = current_stats.HP + "/" + current_stats.MaxHP;
+                blocks[j].transform.Find("MP").GetComponent<Text>().text = current_stats.MP + "/" + current_stats.MaxMP;
+                blocks[j].transform.Find("EXP").GetComponent<Text>().text = current_stats.EXP + "/" + current_stats.EXPNeeded;
+                blocks[j].transform.Find("Level").GetComponent<Text>().text = "Level   " + current_stats.Level;
+                blocks[j].transform.Find("STR").GetComponent<Text>().text = current_stats.Strength.ToString();
+                blocks[j].transform.Find("DEF").GetComponent<Text>().text = current_stats.Defense.ToString();
+                blocks[j].transform.Find("AGL").GetComponent<Text>().text = current_stats.Agility.ToString();
                 blocks[j].SetActive(true);
             }
         }

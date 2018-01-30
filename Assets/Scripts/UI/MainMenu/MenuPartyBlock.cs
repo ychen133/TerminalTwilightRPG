@@ -89,7 +89,7 @@ public class MenuPartyBlock : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void UpdateStatDisplay(string stat, int current_stat, int new_stat, int max_stat = -1)
     {
-        TempText.Add(transform.FindChild(stat).GetComponent<Text>()); //get text displayed
+        TempText.Add(transform.Find(stat).GetComponent<Text>()); //get text displayed
         SavedText.Add(TempText[index].text); //save for quick undo
             StatChange = current_stat + new_stat; //get increase/decrease
         if (max_stat >= 0 && StatChange > max_stat)
