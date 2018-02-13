@@ -25,6 +25,12 @@ public class Player : MovingObject
     private static Player BackingInstance; //the backing variable for singleton pattern
 	private static object LockObject = new object ();
     private static bool applicationIsQuitting = false;
+    private bool _invinsible = false;
+    public bool invinsible
+    {
+        get { return _invinsible; }
+        set { _invinsible = value; }
+    }
 
     private Animator animator;
 	private Stats player_stats;

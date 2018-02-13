@@ -583,10 +583,10 @@ public class DialogueEditor : EditorWindow
 	{
 		if (selectedEntry == null || windows.Count <= id) return; // invalid window
 
-		if (Event.current.type == EventType.mouseDown)
+		if (Event.current.type == EventType.MouseDown)
 			FocusedWindow = id;
 
-		if (linkDragging && Event.current.type == EventType.mouseDown)
+		if (linkDragging && Event.current.type == EventType.MouseDown)
 		{
 			//Debug.Log("Create Link");
 			// find window the cursor is above
