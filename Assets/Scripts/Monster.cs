@@ -86,7 +86,7 @@ public class Monster : MovingObject {
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+		transform.rotation = Quaternion.Euler(0, 0, 0);
         // This is for timing of turn-based movement with Player
         /*if (!GameManager.Instance.IsState(GameStates.IdleState)) {
             if (!GameManager.Instance.IsState(GameStates.PlayerMovingState))
@@ -100,16 +100,15 @@ public class Monster : MovingObject {
             //    if (Time.time > NextActionTime) { //see if it is time to move again
             //        NextActionTime += MoveRate; //set the next time to move
                     float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((Target.position.x - transform.position.x), (Target.position.y - transform.position.y)));
-			if (sqr_magnitude <= 1.5) {
-                        //BattleManager.Instance.Encounter(this);
+			if (sqr_magnitude <= 1.5 && !killed) {
+                    //BattleManager.Instance.Encounter(this);
                 	BattleCanvas.GetComponent<BattleManager>().Encounter(this);
-            }
-                    else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {
-                        if (!Pathfinding)
-                            DetectPlayer();
-                        else
-                            DetectPlayerAStar();
-                    }
+            } else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {    
+				if (!Pathfinding)    
+					DetectPlayer();        
+				else        
+					DetectPlayerAStar();
+			}
         //        }
             }
         //}
