@@ -44,6 +44,38 @@ public class GameManager : Singleton<GameManager> {
 
     private Animator GameState; //The game state machine (see notes in header)
     private HashSet<string> ItemReceivedRecords = new HashSet<string>();
+    private float TimeValue = 5f;    //sets value to the float value 5
+    [SerializeField]
+    private bool _avoidBattles = false;
+    public bool avoidBattles
+    {
+        get { return _avoidBattles; }
+        set
+        {
+            _avoidBattles = value;
+            if (_avoidBattles)
+            {
+                StartCoroutine("TimerStart");
+            }
+        }
+    }
+
+    //Co-routine for avoidBattle's timer
+    IEnumerator TimerStart()
+    {
+        while (TimeValue >= 0)
+        {
+            if (TimeValue == 0)
+            {
+                avoidBattles = false;
+                Debug.Log("avoidBattle set to false");
+                TimeValue = 5f;
+                StopCoroutine("TimerStart");
+            }
+            TimeValue--;
+            yield return new WaitForSeconds(1);
+        }
+    }
 
     /// <summary>
     /// This is to be called by scene change triggers in the game

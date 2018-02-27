@@ -100,7 +100,7 @@ public class Monster : MovingObject {
             //    if (Time.time > NextActionTime) { //see if it is time to move again
             //        NextActionTime += MoveRate; //set the next time to move
                     float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((Target.position.x - transform.position.x), (Target.position.y - transform.position.y)));
-			if (sqr_magnitude <= 1.5 && !killed) {
+			if (sqr_magnitude <= 1.5 && !killed && !GameManager.Instance.avoidBattles) {
                     //BattleManager.Instance.Encounter(this);
                 	BattleCanvas.GetComponent<BattleManager>().Encounter(this);
             } else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {    

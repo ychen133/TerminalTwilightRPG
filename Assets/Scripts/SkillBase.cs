@@ -81,6 +81,7 @@ public class SkillBase : ScriptableObject {
 	/// Skill Text
 	/// </summary>
 	[SerializeField]
+    [TextArea]
 	private string _SkillDescText;
 	public string SkillDescText {
 		get {
