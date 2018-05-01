@@ -10,6 +10,7 @@ public class NPCMommy : Interactable {
 
     public override void Interact()
     {
+        /*
         UIManager.Instance.TalkingCharacter.sprite = MySprite;
         UIManager.Instance.DialoguePics.SetActive(true);
         List<DialogueNode> children;
@@ -37,6 +38,7 @@ public class NPCMommy : Interactable {
             CurrentNode = new DialogueNode("Please find my daughter...", null);
         }
         CurrentNode.Run(this);
+        */
     }
 
 }

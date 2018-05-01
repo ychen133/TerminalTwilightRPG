@@ -11,6 +11,7 @@ public class NPCDialogue : Interactable
 
     public override void Interact()
     {
+        /*
         UIManager.Instance.TalkingCharacter.sprite = MySprite;
         UIManager.Instance.DialoguePics.SetActive(true);
         List<DialogueNode> children;
@@ -38,6 +39,7 @@ public class NPCDialogue : Interactable
             CurrentNode = new DialogueNode("Hello lady! Hopefully mommy finds more food tomorrow! I'm kinda hungry...", null);
         }
         CurrentNode.Run(this);
+        */
     }
 
 }

@@ -11,6 +11,7 @@ public class ToDungeon : Interactable
 
     public override void Interact()
     {
+        /*
             GameManager.Instance.DialogueFrame.sizeDelta = new Vector2(700, 70);
             SoundManager.Instance.SetMusic(ResourceManager.Instance.GetSound("PrisonMusic"));
             //GameManager.Instance.Overall.GetComponent<Image>().sprite = BG;
@@ -18,7 +19,7 @@ public class ToDungeon : Interactable
             CurrentNode = new DialogueNode("~~~The Court of Aesir Prison~~~", null);
             //SetReceived(this);
             CurrentNode.Run(this);
-        
+        */
     }
 
 }

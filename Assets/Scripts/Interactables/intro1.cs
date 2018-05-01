@@ -7,6 +7,7 @@ public class intro1 : Interactable {
 
     public override void Interact()
     {
+        /*
         if (!GetReceived(this)) { //check if not already received
             DialogueNode zzzzz = new DialogueNode("Where am I?... Looks like I'm outside my home village...", null);
             DialogueNode zzzz = new DialogueNode("Awww SHUT UP! This is what the old hag wanted remember? ...", zzzzz);
@@ -24,6 +25,7 @@ public class intro1 : Interactable {
             SetReceived(this);
             CurrentNode.Run(this);
         }
+        */
     }
 
 }
