@@ -25,7 +25,7 @@ public abstract class Interactable : MonoBehaviour
     /// This is to be set as root of the dialogue tree. 
     /// It is meant to minize code in each Interactable.
     /// </summary>
-    protected DialogueNode CurrentNode = null;
+    protected DialogueNode RootNode = null;
 
     /// <summary>
     /// This is called by an interactor such as the player
@@ -38,9 +38,9 @@ public abstract class Interactable : MonoBehaviour
     /// </summary>
     public void Next(Interactable caller)
     {
-        if (CurrentNode.HasNext()) {
-            CurrentNode = CurrentNode.GetNext();
-            CurrentNode.Run(caller);
+        if (RootNode.HasNext()) {
+            RootNode = RootNode.GetNext();
+            RootNode.Run(caller);
         }
         else
             QuitDialogue();
@@ -52,9 +52,9 @@ public abstract class Interactable : MonoBehaviour
     public void Next(Interactable caller, int answer)
     {
         UIManager.Instance.SelectAnswer(-1); //ensure answer selection is reset in UIManager
-        if (CurrentNode.HasNext()) {
-            CurrentNode = CurrentNode.GetNext(answer);
-            CurrentNode.Run(caller);
+        if (RootNode.HasNext()) {
+            RootNode = RootNode.GetNext(answer);
+            RootNode.Run(caller);
         }
         else
             QuitDialogue();

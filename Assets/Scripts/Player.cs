@@ -186,7 +186,10 @@ public class Player : MovingObject
                     mon.gameObject.SetActive(false);
             }
         }
-        else if (Input.GetButtonDown("Submit")) { //if the Enter is pressed
+        else {
+            animator.speed = 0;
+        }
+        if (Input.GetButtonDown("Submit")) { //if the Enter is pressed
             animator.speed = 0;
             //setup to send a raycast to detect if
             //there is an object in fron of player
@@ -205,8 +208,7 @@ public class Player : MovingObject
                 }
             }
         }
-        else
-            animator.speed = 0;
+        
     }
     
     /// <summary>

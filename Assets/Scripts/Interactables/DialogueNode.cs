@@ -8,8 +8,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueNode : MonoBehaviour
+public class DialogueNode
 {
+        private enum TypeOfNode { QandA, SingleMessage, ItemGiving };
         //if not QandA (single message, or item)
         public string message = "no message";
         public DialogueNode NextNode;
@@ -18,17 +19,17 @@ public class DialogueNode : MonoBehaviour
         public List<DialogueNode> children; //next child determined by QandA answer
         private string ItemName;
         private int ItemQuantity = 0; //default: flag that there is no item
+        private TypeOfNode MyType;
 
         /// <summary>
         /// This constructs a single message Node.
         /// next_node is optional, its default is "null" meaning there are noot anymore
         /// Nodes. You may send null for readability if so desired.
         /// </summary>
-        public DialogueNode(string new_message, DialogueNode next_node)
+        public DialogueNode(string new_message)
         {
             message = new_message;
-            NextNode = next_node;
-        
+            MyType = TypeOfNode.SingleMessage;
         }
 
         /// <summary>
@@ -37,10 +38,10 @@ public class DialogueNode : MonoBehaviour
         /// Do not make these null otherwise dialogue will try to send a single message
         /// that does not exist. The lists' nullity are flags for the type of Node it is.
         /// </summary>
-        public DialogueNode(List<string> q_and_a, List<DialogueNode> my_children)
+        public DialogueNode(List<string> q_and_a)
         {
             QandA = q_and_a;
-            children = my_children;
+            MyType = TypeOfNode.QandA;
         }
         
         /// <summary>
@@ -50,11 +51,41 @@ public class DialogueNode : MonoBehaviour
         /// These nodes do not send messages since adding an item to inventory automatically
         /// invokes a message to the player of what item(s) is/are obtained.
         /// </summary>
-        public DialogueNode(string item_name, int item_quantity, DialogueNode next_node)
+        public DialogueNode(string item_name, int item_quantity)
         {
             ItemName = item_name;
             ItemQuantity = item_quantity;
-            NextNode = next_node;
+            MyType = TypeOfNode.ItemGiving;
+        }
+
+        /// <summary>
+        /// Adds the next Node to be called after the current node
+        /// </summary>
+        public void Add(DialogueNode next_node)
+        {
+            if (MyType == TypeOfNode.SingleMessage || MyType == TypeOfNode.ItemGiving)
+            {
+                NextNode = next_node;
+            }
+            else
+            {
+                Debug.LogError("You tried to add a single next node to a QandA node but it should have a List<DialogueNodes> added.");
+            }
+        }
+
+        /// <summary>
+        /// Adds the list of potential next nodes based on the user's response to the dialogue question.
+        /// </summary>
+        public void Add(List<DialogueNode> children)
+        {
+            if (MyType == TypeOfNode.QandA)
+            {
+                this.children = children;
+            }
+            else
+            {
+                Debug.LogError("You tried to add a list of children nodes to a dialogue node that is not QandA. Please add a single DialogueNode.");
+            }
         }
 
         /// <summary>
@@ -62,7 +93,7 @@ public class DialogueNode : MonoBehaviour
         /// It decides whether to print a single message, give an item to
         /// inventory, or display a QandA message based on variables set by the constructor.
         /// </summary>
-        public void Run(Interactable caller)
+    public void Run(Interactable caller)
         {
         if (ItemQuantity == 0 && QandA == null) {
             UIManager.Instance.RunDialogue(caller, message);

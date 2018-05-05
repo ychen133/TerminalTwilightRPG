@@ -11,6 +11,7 @@ public class PrisonCell : Interactable
 
     public override void Interact()
     {
+        /*
         if (!GetReceived(this)) { //check if not already received
             //GameManager.Instance.DialogueFrame.sizeDelta = new Vector2(700, 70);
             GameManager.Instance.Overall.GetComponent<Image>().sprite = BG;
@@ -19,6 +20,7 @@ public class PrisonCell : Interactable
             SetReceived(this);
             CurrentNode.Run(this);
         }
+        */
     }
 
 }

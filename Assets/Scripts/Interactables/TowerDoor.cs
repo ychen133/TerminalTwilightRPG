@@ -11,6 +11,7 @@ public class TowerDoor : Interactable
 
     public override void Interact()
     {
+        /*
         if (!GetReceived(this)) { //check if not already received
             GameManager.Instance.Overall.GetComponent<Image>().sprite = BG;
             GameManager.Instance.Overall.SetActive(true);
@@ -18,7 +19,9 @@ public class TowerDoor : Interactable
             CurrentNode = new DialogueNode("I finally found the Warden's office! The communication device must be inside... Hopefully you play the full game to find out what happens! ...TO BE CONTINUED.", n);
             SetReceived(this);
             CurrentNode.Run(this);
+            
         }
+        */
     }
 
 }
