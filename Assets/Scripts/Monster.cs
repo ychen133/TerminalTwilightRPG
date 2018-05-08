@@ -44,7 +44,7 @@ public class Monster : MovingObject {
     private AudioClip MonsterSound;
     [SerializeField]
     private Animator myAnimator;
-
+    private Rigidbody2D rb;
     private bool waiting = false;
 
     /// <summary>
@@ -79,6 +79,7 @@ public class Monster : MovingObject {
         //MonsterSound = ResourceManager.Instance.GetSound("MonsterGrunt");
         MySpot = transform.GetChild(0);
         MySpot.gameObject.SetActive(false);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private IEnumerator wait()
@@ -90,10 +91,10 @@ public class Monster : MovingObject {
     // Update is called once per frame
     void Update()
     {
-        // Update animation controller
+        // Update animation controller triggers
         if (myAnimator)
         {
-            myAnimator.SetBool("IsMoving", IAmMoving);
+            myAnimator.SetBool("IsMoving", (rb.velocity != Vector2.zero));
         }
 
 		transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -113,17 +114,12 @@ public class Monster : MovingObject {
 			if (sqr_magnitude <= 1.5 && !killed && !GameManager.Instance.avoidBattles) {
                     //BattleManager.Instance.Encounter(this);
                 	BattleCanvas.GetComponent<BattleManager>().Encounter(this);
-                    IAmMoving = false;
             } else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {    
 				if (!Pathfinding)    
 					DetectPlayer();        
 				else        
 					DetectPlayerAStar();
 			}
-            else
-            {
-                IAmMoving = false;
-            }
         //        }
             }
         //}
@@ -194,7 +190,6 @@ public class Monster : MovingObject {
         if (!MyAudioSource.isPlaying)
             SoundManager.Instance.RandomizeSfx(MonsterSound, MyAudioSource);
         AttemptMove<Player>(x_dir, y_dir);
-        IAmMoving = true;
         /*
         for (int i = 0; i < colliders.Length; i++) {
             if (colliders[i].gameObject.tag == Target.tag) {
@@ -243,7 +238,6 @@ public class Monster : MovingObject {
         if (!MyAudioSource.isPlaying)
             SoundManager.Instance.RandomizeSfx(MonsterSound, MyAudioSource);
         AttemptMove<Player>(x_dir, y_dir);
-        IAmMoving = true;
     }
     
     /// <summary>
