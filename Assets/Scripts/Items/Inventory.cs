@@ -58,6 +58,7 @@ public class Inventory : Singleton<Inventory> {
     /// </summary>
     public int AddItem(string item_name, int quantity)
     {
+ 
         if (ResourceManager.Instance.GetItem(item_name)) { //if item exists
             ItemBase item_base = ResourceManager.Instance.GetItem(item_name);
             ItemTypes item_type = item_base.Type;
