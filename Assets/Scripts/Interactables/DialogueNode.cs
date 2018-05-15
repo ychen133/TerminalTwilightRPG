@@ -3,13 +3,13 @@
  * DESCRIPTION:     The node to construct a dialogue tree in an interactable class.
  * REQUIREMENTS:    None
  */
-
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueNode
-{
+{   
         private enum TypeOfNode { QandA, SingleMessage, ItemGiving };
         //if not QandA (single message, or item)
         public string message = "no message";
@@ -20,6 +20,8 @@ public class DialogueNode
         private string ItemName;
         private int ItemQuantity = 0; //default: flag that there is no item
         private TypeOfNode MyType;
+        private Action extraFunctionality;  
+        
 
         /// <summary>
         /// This constructs a single message Node.
@@ -95,16 +97,20 @@ public class DialogueNode
         /// </summary>
     public void Run(Interactable caller)
         {
-        if (ItemQuantity == 0 && QandA == null) {
-            UIManager.Instance.RunDialogue(caller, message);
-        }
-        else if (ItemQuantity > 0) {
-            Interactable.AddItem(caller, ItemName, ItemQuantity);
-            GameManager.Instance.SetReceived(caller.GetType().ToString());
-        }
-        else {
-            UIManager.Instance.RunDialogue(caller, QandA);
-        }
+            if(extraFunctionality != null) {
+                extraFunctionality();
+            }
+            
+            if (ItemQuantity == 0 && QandA == null) {
+                UIManager.Instance.RunDialogue(caller, message);
+            }
+            else if (ItemQuantity > 0) {
+                Interactable.AddItem(caller, ItemName, ItemQuantity);
+                GameManager.Instance.SetReceived(caller.GetType().ToString());
+            }
+            else {
+                UIManager.Instance.RunDialogue(caller, QandA);
+            }
         }
 
         /// <summary>
@@ -135,5 +141,13 @@ public class DialogueNode
                 return true;
             //else
             return false;
+        }
+
+        /// <summary>
+        /// Add extra code that executes when Run() is called
+        /// </summary>
+        /// <param name="a">extra code</param>
+        public void AddFunctionality(Action a){
+            extraFunctionality = a;
         }
 }

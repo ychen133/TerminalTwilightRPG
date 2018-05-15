@@ -6,6 +6,8 @@ public class TreasureChest : Interactable
 {
 	private bool received;
 	private Animator animator;
+	public GameObject openEffect;
+	public Transform openEffectLocation;
 	public ItemBase item;
 	public int amount;
 
@@ -31,8 +33,18 @@ public class TreasureChest : Interactable
     }
 
 	private IEnumerator OpenChest() {
-		animator.SetTrigger("Open");
-		yield return new WaitForSeconds(0.7f);
+		if(item != null) {
+			animator.SetTrigger("Open");
+		}
+		else {
+			animator.SetTrigger("Open Nothing");
+		}
+		yield return new WaitForSeconds(0.3f);
+		if(item != null && openEffect) {
+			Instantiate(openEffect, openEffectLocation);
+		}
+		yield return new WaitForSeconds(0.5f);
+		
 		if(item == null) {
 			RootNode = new DialogueNode("The chest was empty...");
 		}

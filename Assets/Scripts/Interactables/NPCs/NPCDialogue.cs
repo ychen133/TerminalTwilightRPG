@@ -11,6 +11,25 @@ public class NPCDialogue : Interactable
 
     public override void Interact()
     {
+        UIManager.Instance.TalkingCharacter.sprite = MySprite;
+        UIManager.Instance.DialoguePics.SetActive(true);
+        DialogueBuilder db = new DialogueBuilder();
+        if(!GetReceived(this)) {
+            RootNode = new DialogueNode("Wow! Pretty dress!");
+            db.begin(RootNode);
+                db.fork("Are you gonna get married?");
+                    DialogueNode a = db.branch("Why, Yes!", "Yay! Please take my only meal as a gift!");
+                    DialogueNode b = db.branch("Not really", "OK, bye bye then, lady!");
+                db.fork();
+
+            db.begin(a);
+                db.item("Bread", 1);
+        }
+        else {
+            RootNode = new DialogueNode("Hello lady! Hopefully mommy finds more food tomorrow! I'm kinda hungry...");
+        }
+        RootNode.Run(this);
+
         /*
         UIManager.Instance.TalkingCharacter.sprite = MySprite;
         UIManager.Instance.DialoguePics.SetActive(true);

@@ -10,6 +10,25 @@ public class NPCMommy : Interactable {
 
     public override void Interact()
     {
+        UIManager.Instance.TalkingCharacter.sprite = MySprite;
+        UIManager.Instance.DialoguePics.SetActive(true);
+        DialogueBuilder db = new DialogueBuilder();
+        if (!GetReceived(this)) {
+            RootNode = new DialogueNode("Miss, please... I can't find my daughter. She hasn't eaten in days...");
+            db.begin(RootNode);
+                db.fork("Will you please look for her and give her this food?");
+                    DialogueNode a = db.branch("Of course.", "Oh! Please give this to my daughter! I beg of you...");
+                    DialogueNode b = db.branch("I'm kinda busy", "...I see...");
+                db.fork();
+
+            db.begin(a);
+                db.item("Bread", 1);
+        }
+        else {
+            RootNode = new DialogueNode("Please find my daughter...");
+        }
+        RootNode.Run(this);
+        
         /*
         UIManager.Instance.TalkingCharacter.sprite = MySprite;
         UIManager.Instance.DialoguePics.SetActive(true);
@@ -39,6 +58,7 @@ public class NPCMommy : Interactable {
         }
         CurrentNode.Run(this);
         */
+
     }
 
 }
