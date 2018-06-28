@@ -93,22 +93,23 @@ public class Monster : MovingObject {
                 NextActionTime = Time.time;
         }*/
         //else {
-            if (!IAmMoving && MySpot.position != transform.position)
-                MySpot.position = transform.position;
-            if (!Paused && (GameManager.Instance.IsState(GameStates.IdleState) ||
-                    GameManager.Instance.IsState(GameStates.PlayerMovingState))) { //only move when game is in idle mode and monster is not paused from fleeing battle
+        if (!IAmMoving && MySpot.position != transform.position)
+            MySpot.position = transform.position;
+
+        //only move when game is in idle mode and monster is not paused from fleeing battle
+        if (!Paused && (GameManager.Instance.IsState(GameStates.IdleState) || GameManager.Instance.IsState(GameStates.PlayerMovingState))) { 
             //    if (Time.time > NextActionTime) { //see if it is time to move again
             //        NextActionTime += MoveRate; //set the next time to move
-                    float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((Target.position.x - transform.position.x), (Target.position.y - transform.position.y)));
-			if (sqr_magnitude <= 1.5 && !killed && !GameManager.Instance.avoidBattles) {
-                    //BattleManager.Instance.Encounter(this);
-                	BattleCanvas.GetComponent<BattleManager>().Encounter(this);
+            float sqr_magnitude = Vector3.SqrMagnitude(new Vector3((Target.position.x - transform.position.x), (Target.position.y - transform.position.y)));
+	        if (sqr_magnitude <= 1.5 && !killed){// && !GameManager.Instance.avoidBattles) {
+                //BattleManager.Instance.Encounter(this);
+                BattleCanvas.GetComponent<BattleManager>().Encounter(this);
             } else if (sqr_magnitude <= (Radius * Radius) && !IAmMoving) {    
-				if (!Pathfinding)    
-					DetectPlayer();        
+		        if (!Pathfinding)    
+		            DetectPlayer();        
 				else        
 					DetectPlayerAStar();
-			}
+			    }
         //        }
             }
         //}
@@ -119,8 +120,22 @@ public class Monster : MovingObject {
     /// </summary>
     protected override void AttemptMove<T>(int x_dir, int y_dir)
     {
+        //if (!GameManager.Instance.avoidBattles)
+        //{
         MySpot.position = (transform.position + new Vector3(x_dir, y_dir));
-        base.AttemptMove<T>(x_dir, y_dir, this);
+        if(!GameManager.Instance.avoidBattles)
+        {
+            base.AttemptMove<T>(x_dir, y_dir, this);
+        }
+        else
+        {
+            //BoxCollider2D collider = this.GetComponent<BoxCollider2D>();
+            //OnCollisionEnter2D(collider);
+        }
+        //base.AttemptMove<T>(x_dir, y_dir, this);
+        //}
+        //else
+        //    return;
     }
 
     /* ################################################################### NOT WORKING :((
@@ -138,6 +153,19 @@ public class Monster : MovingObject {
         }
     }
     */
+
+    /// <summary>
+    /// 2D-collision detection used only for when Gamemanager's avoidBattle flag is true
+    /// This will trigger battle when the player runs into the non-moving monster
+    /// </summary>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "EllaModel" && GameManager.Instance.avoidBattles)
+        {
+            Debug.Log("Monster.cs called OnCollisionEnter2D");
+            BattleCanvas.GetComponent<BattleManager>().Encounter(this);
+        }
+    }
 
     /// <summary>
     /// Called if the Monster cannot move
