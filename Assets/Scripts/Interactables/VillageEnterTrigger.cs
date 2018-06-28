@@ -10,6 +10,7 @@ public class VillageEnterTrigger : Interactable {
 
     public override void Interact()
     {
+        /*
         if (!GetReceived(this)) { //check if not already received
             GameManager.Instance.Overall.GetComponent<Image>().sprite = BG;
             GameManager.Instance.Overall.SetActive(true);
@@ -17,6 +18,7 @@ public class VillageEnterTrigger : Interactable {
             SetReceived(this);
             CurrentNode.Run(this);
         }
+        */
     }
 
 }

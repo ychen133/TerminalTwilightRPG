@@ -11,9 +11,10 @@ using UnityEngine;
 
 public class Monster : MovingObject {
 
-    //[SerializeField]
     public List<Stats> EnemyParty = new List<Stats>();
     public Canvas BattleCanvas;
+    [SerializeField]
+    private Transform MyMesh;
 
     //public Stats MonsterStats;
     [Tooltip("Set whether this AI searches for the best path")]
@@ -38,9 +39,12 @@ public class Monster : MovingObject {
     private MyPathNode startGridPosition;
     private MyPathNode endGridPosition;
     private Transform MySpot;
-    private AudioClip MonsterSound;
     private AudioSource MyAudioSource;
-
+    [SerializeField]
+    private AudioClip MonsterSound;
+    [SerializeField]
+    private Animator myAnimator;
+    private Rigidbody2D rb;
     private bool waiting = false;
 
     /// <summary>
@@ -72,9 +76,10 @@ public class Monster : MovingObject {
     private void Start()
     {
         Target = Player.Instance.transform;
-        MonsterSound = ResourceManager.Instance.GetSound("MonsterGrunt");
+        //MonsterSound = ResourceManager.Instance.GetSound("MonsterGrunt");
         MySpot = transform.GetChild(0);
         MySpot.gameObject.SetActive(false);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private IEnumerator wait()
@@ -86,6 +91,12 @@ public class Monster : MovingObject {
     // Update is called once per frame
     void Update()
     {
+        // Update animation controller triggers
+        if (myAnimator)
+        {
+            myAnimator.SetBool("IsMoving", (rb.velocity != Vector2.zero));
+        }
+
 		transform.rotation = Quaternion.Euler(0, 0, 0);
         // This is for timing of turn-based movement with Player
         /*if (!GameManager.Instance.IsState(GameStates.IdleState)) {
@@ -120,8 +131,19 @@ public class Monster : MovingObject {
     /// </summary>
     protected override void AttemptMove<T>(int x_dir, int y_dir)
     {
+<<<<<<< HEAD
         //if (!GameManager.Instance.avoidBattles)
         //{
+=======
+        if (MyMesh)
+        {
+            //rotate to face direction of motion
+            float angle = (Mathf.Atan2(x_dir, y_dir) * Mathf.Rad2Deg);
+            MyMesh.localRotation =
+                Quaternion.Slerp(MyMesh.localRotation, Quaternion.Euler(0, angle, 0), 20 * Time.deltaTime);
+        }
+
+>>>>>>> bb1ee0685fa6a944212cfe59487b1887460c315e
         MySpot.position = (transform.position + new Vector3(x_dir, y_dir));
         if(!GameManager.Instance.avoidBattles)
         {

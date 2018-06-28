@@ -11,8 +11,10 @@ using UnityEngine;
 
 public class DoorMessage : Interactable {
 
+    
     public override void Interact()
     {
+        /*
         List<DialogueNode> children;
         List<string> qanda;
         if (!GetReceived(this)) {
@@ -64,6 +66,7 @@ public class DoorMessage : Interactable {
             CurrentNode = new DialogueNode("You're back so soon!", b);
         }
         CurrentNode.Run(this);
+        */
     }
-
+    
 }

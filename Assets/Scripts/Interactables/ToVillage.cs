@@ -11,7 +11,8 @@ public class ToVillage : Interactable
 
     public override void Interact()
     {
-            GameManager.Instance.DialogueFrame.sizeDelta = new Vector2(700, 70);
+        /*
+        GameManager.Instance.DialogueFrame.sizeDelta = new Vector2(700, 70);
 
         SoundManager.Instance.SetMusic(ResourceManager.Instance.GetSound("CastleMusic"));
             //GameManager.Instance.Overall.GetComponent<Image>().sprite = BG;
@@ -19,7 +20,7 @@ public class ToVillage : Interactable
             CurrentNode = new DialogueNode("~~~The Rebel Village~~~", null);
             //SetReceived(this);
             CurrentNode.Run(this);
-        
+        */
     }
 
 }
